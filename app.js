@@ -1,5 +1,7 @@
 const {render} = ReactDOM;
 
+// React Component
+
 function Header(props) {
   var customClasses = {
     header: "Header col-12",
@@ -33,22 +35,66 @@ function Note(props) {
   );
 }
 
-function EditNote(props) {
-  return(
-    <form className="form form-control">
-      <div>
-        <input className="Title form-control" value={props.title}/>
-      </div>
-      <div>
-        <textarea className="Body form-control">{props.body}</textarea>
-      </div>
-    </form>
-  );
+class EditNote extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {title: this.props.title, body: this.props.body};
+
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleBodyChange = this.handleBodyChange.bind(this);
+  }
+
+  handleTitleChange(e) {
+    this.setState(
+      {title: e.target.value}
+    );
+  }
+
+  handleBodyChange(e) {
+    this.setState(
+      {body: e.target.value}
+    );
+  }
+
+  // handleSubmit() {
+  //   function(e) {
+  //     e.preventDefault();
+  //     localStrorage.setItem("title", {this.props.title});
+  //     localStrorage.setItem("body", {this.props.body});
+  //   }
+  // }
+
+  render() {
+    return(
+      <form className="EditNote form form-control" onSubmit={this.handleSubmit}>
+        <div>
+          <input className="Title form-control"
+            name="title"
+            value={this.state.title}
+            onChange={this.handleTitleChange}
+          />
+        </div>
+        <div>
+          <textarea className="Body form-control"
+            onChange={this.handleBodyChange}
+            value={this.state.body}
+          />
+        </div>
+        <div>
+          <input type="submit" value="Save" className="SaveButton btn btn-gray float-right" />
+        </div>
+      </form>
+    );
+  }
 }
+
+// JS functions
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {title: "Note1", body: "This is my first note"};
   }
 
   render() {
@@ -60,7 +106,7 @@ class App extends React.Component {
 
         <div className="main row">
           <div className="Minimap col-md-4 col-4">
-            <Note title="Note1" body="This is my frst note" />
+            <Note title="title" body="This is my frst note body"/>
             <Note title="Note1" body="This is my frst note" />
             <Note title="Note1" body="This is my frst note" />
             <Note title="Note1" body="This is my frst note" />
@@ -68,7 +114,7 @@ class App extends React.Component {
           </div>
 
           <div className="NewNote col-md-8 col-8">
-            <EditNote title="Note1" body="This is my frst note"/>
+            <EditNote title={this.state.title} body={this.state.body}/>
           </div>
         </div>
       </div>
