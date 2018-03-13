@@ -1,0 +1,74 @@
+.App{
+  overflow: hidden;
+}
+
+.Header {
+  background-color: #333;
+  height: 50px;
+  margin: auto;
+}
+
+.Header-text {
+  text-align: center;
+  color: #eee;
+}
+
+.main {
+  margin: auto;
+}
+
+.Minimap {
+  border-right: 1px solid rgba(33, 33, 33, .5);
+  margin-top: 20px;
+}
+
+.Note {
+  border-bottom: 1px solid rgba(33, 33, 33, .5);
+  margin: 0px;
+  padding: 0px;
+}
+
+/* .Note:hover {
+  cursor: default;
+} */
+
+.Note:last-child {
+  border-bottom: idea;
+}
+
+.MiniTitle, .MiniBody {
+  margin: 0px;
+  padding: 5px 0px;
+}
+
+.form {
+  margin-top: 20px;
+  margin-left: 20px;
+  border: none;
+}
+
+.Title, .Body {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.Title {
+  border-bottom: 1px dashed rgba(33, 33, 33, .1);
+}
+
+.Body {
+  height: 400px;
+  border-left: 1px dashed rgba(33, 33, 33, .1);
+  border-right: 1px dashed rgba(33, 33, 33, .1);
+}
+
+.Title:focus, .Body:focus {
+  box-shadow: none;
+  border-color: rgba(33, 33, 33, 1);
+}
+
+
+/* .Note{
+  border: .1px solid rgba(33, 33, 33, .5);
+} */
