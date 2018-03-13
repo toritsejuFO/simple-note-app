@@ -1,14 +1,35 @@
 const {render} = ReactDOM;
 
-// React Component
+var note = [
+  {
+    title: "Note1",
+    body: "This is my first note",
+  },
+  {
+    title: "Note2",
+    body: "This is my second note",
+  },
+  {
+    title: "Note3",
+    body: "This is my third note",
+  },
+  {
+    title: "Note4",
+    body: "This is my fourth note",
+  },
+  {
+    title: "Note5",
+    body: "This is my fifth note",
+  },
+]
+
+console.log(note[0].title);
+
+// My App's React Components
 
 function Header(props) {
-  var customClasses = {
-    header: "Header col-12",
-  }
-
   return (
-    <div className={customClasses.header}>
+    <div className="Header col-12">
       <h1 className="Header-text">{props.text}</h1>
     </div>
   );
@@ -35,6 +56,24 @@ function Note(props) {
   );
 }
 
+class List extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="List col-md-4 col-4">
+        <Note title={this.props.note[0].title} body={this.props.note[0].body}/>
+        <Note title={this.props.note[1].title} body={this.props.note[1].body}/>
+        <Note title={this.props.note[2].title} body={this.props.note[2].body}/>
+        <Note title={this.props.note[3].title} body={this.props.note[3].body}/>
+        <Note title={this.props.note[4].title} body={this.props.note[4].body}/>
+      </div>
+    );
+  }
+}
+
 class EditNote extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +81,7 @@ class EditNote extends React.Component {
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleBodyChange = this.handleBodyChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleTitleChange(e) {
@@ -56,13 +96,16 @@ class EditNote extends React.Component {
     );
   }
 
-  // handleSubmit() {
-  //   function(e) {
-  //     e.preventDefault();
-  //     localStrorage.setItem("title", {this.props.title});
-  //     localStrorage.setItem("body", {this.props.body});
-  //   }
-  // }
+  handleSubmit(e) {
+    if(this.state.body == ""){
+      alert("Cannot save empty note");
+    }
+    else{
+      // localStrorage.setItem("title", {this.props.title});
+      // localStrorage.setItem("body", {this.props.body});
+    }
+    e.preventDefault();
+  }
 
   render() {
     return(
@@ -88,8 +131,7 @@ class EditNote extends React.Component {
   }
 }
 
-// JS functions
-
+// Main App component, whole interface
 
 class App extends React.Component {
   constructor(props) {
@@ -105,13 +147,9 @@ class App extends React.Component {
         </div>
 
         <div className="main row">
-          <div className="Minimap col-md-4 col-4">
-            <Note title="title" body="This is my frst note body"/>
-            <Note title="Note1" body="This is my frst note" />
-            <Note title="Note1" body="This is my frst note" />
-            <Note title="Note1" body="This is my frst note" />
-            <Note title="Note1" body="This is my frst note" />
-          </div>
+          {/* <div className="col-md-4 col-4"> */}
+            <List note={note} />
+          {/* </div> */}
 
           <div className="NewNote col-md-8 col-8">
             <EditNote title={this.state.title} body={this.state.body}/>
@@ -122,6 +160,7 @@ class App extends React.Component {
   }
 }
 
+// Render App compn
 render(
   <App />,
   document.getElementById("react-container")
