@@ -1,29 +1,38 @@
 const {render} = ReactDOM;
 
-var note = [
-  {
-    title: "Note1",
-    body: "This is my first note",
-  },
-  {
-    title: "Note2",
-    body: "This is my second note",
-  },
-  {
-    title: "Note3",
-    body: "This is my third note",
-  },
-  {
-    title: "Note4",
-    body: "This is my fourth note",
-  },
-  {
-    title: "Note5",
-    body: "This is my fifth note",
-  },
-]
+// include locally stored notes for display
+localStorage.setItem('title1', 'Heading1');
+localStorage.setItem('body1', 'Type your note here');
+localStorage.setItem('title2', 'Heading2');
+localStorage.setItem('body2', 'Type your note here');
+localStorage.setItem('title3', 'Heading3');
+localStorage.setItem('body3', 'Type your note here');
+localStorage.setItem('title4', 'Heading4');
+localStorage.setItem('body4', 'Type your note here');
+localStorage.setItem('title5', 'Heading5');
+localStorage.setItem('body5', 'Type your note here');
+localStorage.setItem('title6', 'Heading6');
+localStorage.setItem('body6', 'Type your note here');
 
-console.log(note[0].title);
+var title = [
+  localStorage.getItem('title1') ? localStorage.getItem('title1') : null,
+  localStorage.getItem('title2') ? localStorage.getItem('title2') : null,
+  localStorage.getItem('title3') ? localStorage.getItem('title3') : null,
+  localStorage.getItem('title4') ? localStorage.getItem('title4') : null,
+  localStorage.getItem('title5') ? localStorage.getItem('title5') : null,
+  localStorage.getItem('title6') ? localStorage.getItem('title6') : null,
+];
+
+var body = [
+  localStorage.getItem('body1') ? localStorage.getItem('body1') : null,
+  localStorage.getItem('body2') ? localStorage.getItem('body2') : null,
+  localStorage.getItem('body3') ? localStorage.getItem('body3') : null,
+  localStorage.getItem('body4') ? localStorage.getItem('body4') : null,
+  localStorage.getItem('body5') ? localStorage.getItem('body5') : null,
+  localStorage.getItem('body6') ? localStorage.getItem('body6') : null,
+];
+
+var currentNote = {title: '', body: '', number: ''};
 
 // My App's React Components
 
@@ -52,6 +61,7 @@ function Note(props) {
     <div className="Note">
       <MiniTitle title={props.title}/>
       <MiniBody body={props.body}/>
+      <button class="editButton">Edit</button>
     </div>
   );
 }
@@ -59,19 +69,28 @@ function Note(props) {
 class List extends React.Component {
   constructor(props) {
     super(props);
+
+    // this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
     return (
       <div className="List col-md-4 col-4">
-        <Note title={this.props.note[0].title} body={this.props.note[0].body}/>
-        <Note title={this.props.note[1].title} body={this.props.note[1].body}/>
-        <Note title={this.props.note[2].title} body={this.props.note[2].body}/>
-        <Note title={this.props.note[3].title} body={this.props.note[3].body}/>
-        <Note title={this.props.note[4].title} body={this.props.note[4].body}/>
+        <Note title={this.props.noteTitle[0]} body={this.props.noteBody[0]} onClick={handleClick(1)}/>
+        <Note title={this.props.noteTitle[1]} body={this.props.noteBody[1]} onClick={handleClick(2)}/>
+        <Note title={this.props.noteTitle[2]} body={this.props.noteBody[2]} onClick={handleClick(3)}/>
+        <Note title={this.props.noteTitle[3]} body={this.props.noteBody[3]} onClick={handleClick(4)}/>
+        <Note title={this.props.noteTitle[4]} body={this.props.noteBody[4]} onClick={handleClick(5)}/>
+        <Note title={this.props.noteTitle[5]} body={this.props.noteBody[5]} onClick={handleClick(6)}/>
       </div>
     );
   }
+}
+
+function handleClick(number) {
+  currentNote.title = localStorage.getItem("title" + number);
+  currentNote.body = localStorage.getItem("body" + number);
+  console.log(currentNote.title);
 }
 
 class EditNote extends React.Component {
@@ -136,7 +155,7 @@ class EditNote extends React.Component {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {title: "Note1", body: "This is my first note"};
+    this.state = {title: currentNote.title, body: currentNote.body};
   }
 
   render() {
@@ -147,9 +166,7 @@ class App extends React.Component {
         </div>
 
         <div className="main row">
-          {/* <div className="col-md-4 col-4"> */}
-            <List note={note} />
-          {/* </div> */}
+          <List noteTitle={title} noteBody={body} />
 
           <div className="NewNote col-md-8 col-8">
             <EditNote title={this.state.title} body={this.state.body}/>
@@ -160,7 +177,7 @@ class App extends React.Component {
   }
 }
 
-// Render App compn
+// Render App component
 render(
   <App />,
   document.getElementById("react-container")
