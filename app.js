@@ -61,7 +61,7 @@ function Note(props) {
     <div className="Note">
       <MiniTitle title={props.title}/>
       <MiniBody body={props.body}/>
-      <button class="editButton">Edit</button>
+      <button className="editButton">Edit</button>
     </div>
   );
 }
@@ -120,8 +120,8 @@ class EditNote extends React.Component {
       alert("Cannot save empty note");
     }
     else{
-      // localStrorage.setItem("title", {this.props.title});
-      // localStrorage.setItem("body", {this.props.body});
+      // localStorage.setItem("title", {this.props.title});
+      // localStorage.setItem("body", {this.props.body});
     }
     e.preventDefault();
   }
@@ -155,7 +155,10 @@ class EditNote extends React.Component {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {title: currentNote.title, body: currentNote.body};
+    this.state = {
+      title: localStorage.getItem("title1"),
+      body: localStorage.getItem("body1"),
+    };
   }
 
   render() {

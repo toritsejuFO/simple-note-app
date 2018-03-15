@@ -35,10 +35,6 @@
   border-color: rgba(33, 33, 33, .8);
 }
 
-.Note:last-child {
-  border-bottom: none;
-}
-
 .editButton {
   float: right;
 }
