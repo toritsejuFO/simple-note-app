@@ -29,12 +29,17 @@ var bodies = [
 (localStorage.getItem('body6') == null) ? localStorage.setItem('body6', 'Type your note here') : localStorage.getItem('body6'),
 ];
 
+if(localStorage.getItem('lastClickedID') == null) {
+  localStorage.setItem('lastClickedID', 1);
+}
+
 if(localStorage.getItem('lastSavedID') == null) {
   localStorage.setItem('lastSavedID', 1);
 }
 
 // My App's React Components
 
+// Header component
 function Header(props) {
   return (
     <div className="Header col-12">
@@ -59,26 +64,24 @@ class Note extends React.Component {
   }
 }
 
-
-
-// Main App component, whole interface containg form(controlled)
-class App extends React.Component {
+// EditNote Component
+class EditNote extends React.Component {
   constructor(props) {
     super(props);
-
-    // Save the id of the note updated last, so on refresh form state is retained
     const lastSavedID = localStorage.getItem('lastSavedID');
+    const lastClickedID = localStorage.getItem("lastClickedID");
 
     this.state = {
-      title: localStorage.getItem("title" + lastSavedID),
-      body: localStorage.getItem("body" + lastSavedID),
-      id: localStorage.getItem("id" + lastSavedID),
+      title: localStorage.getItem("title" + lastClickedID),
+      body: localStorage.getItem("body" + lastClickedID),
+      id: localStorage.getItem("id", lastSavedID),
+      lastClickedID: lastClickedID,
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleBodyChange = this.handleBodyChange.bind(this);
-    this.editClickedNote = this.editClickedNote.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeStateBasedOnClickedId = this.changeStateBasedOnClickedId.bind(this);
   }
 
   handleTitleChange(e) {
@@ -93,31 +96,89 @@ class App extends React.Component {
     );
   }
 
-  // Chnage the state of form input values to currently clicked note
-  editClickedNote(e) {
-    const noteID = e.target.value / 10;
-    console.log(noteID);
-
-    this.setState({
-      title: localStorage.getItem("title" + noteID),
-      body: localStorage.getItem("body" + noteID),
-      id: localStorage.getItem("id" + noteID),
-    });
-  }
-
   // Update saved note
   handleSubmit(e) {
     if(this.state.body == "" || this.state.title == ""){
       alert("Cannot save note with empty title or body");
     }
     else{
-      var title = "title" + this.state.id;
-      var body = "body" + this.state.id;
+      var title = "title" + this.state.lastClickedID;
+      var body = "body" + this.state.lastClickedID;
       localStorage.setItem(title, this.state.title);
       localStorage.setItem(body, this.state.body);
       localStorage.setItem("lastSavedID", this.state.id);
     }
+
     e.preventDefault();
+  }
+
+  changeStateBasedOnClickedId(id) {
+    localStorage.setItem("lastClickedID", id);
+    var lastClickedID = localStorage.getItem("lastClickedID");
+
+    this.setState({
+      title: localStorage.getItem('title' + lastClickedID),
+      body: localStorage.getItem('body' + lastClickedID),
+      lastClickedID: lastClickedID,
+    });
+  }
+
+  render() {
+    if(this.state.lastClickedID != this.props.idOfNoteToEdit) {
+      this.changeStateBasedOnClickedId(this.props.idOfNoteToEdit);
+    }
+    return(
+      // {/* Form to edit and update existing notes*/}
+      <form className="EditNote form form-control" onSubmit={this.handleSubmit}>
+        <div>
+          <p>You are editing slot <input className="UneditableID" type="number" value={this.state.lastClickedID} disabled/></p>
+        </div>
+        <div>
+          <input className="Title form-control"
+            value={this.state.title}
+            onChange={this.handleTitleChange}
+          />
+        </div>
+        <div>
+          <textarea className="Body form-control"
+            onChange={this.handleBodyChange}
+            value={this.state.body}
+          />
+        </div>
+        <div>
+          <input type="submit" value="Save" className="SaveButton btn btn-gray float-right" />
+        </div>
+      </form>
+    );
+  }
+}
+
+
+// Main App component, whole interface containg form(controlled)
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // Save the id of the note updated last, so on refresh form state is retained
+    const lastSavedID = localStorage.getItem('lastSavedID');
+    const lastClickedID = localStorage.getItem('lastClickedID');
+
+    this.state = {
+      // id: localStorage.getItem("id" + lastSavedID),
+      id: lastClickedID,
+    };
+
+    this.editClickedNote = this.editClickedNote.bind(this);
+  }
+
+  // Chnage the state of form input values to currently clicked note
+  editClickedNote(e) {
+    const noteID = e.target.value / 10;
+    console.log(noteID);
+
+    this.setState((state) => ({
+      id: noteID,
+    }));
   }
 
   render() {
@@ -158,34 +219,13 @@ class App extends React.Component {
           </div>
 
           <div className="NewNote col-md-8 col-sm-7 col-12">
-            {/* Form to edit and update existing notes*/}
-            <form className="EditNote form form-control" onSubmit={this.handleSubmit}>
-              <div>
-                <p>You are editing slot <input className="UneditableID" type="number" value={this.state.id} disabled/></p>
-              </div>
-              <div>
-                <input className="Title form-control"
-                  value={this.state.title}
-                  onChange={this.handleTitleChange}
-                />
-              </div>
-              <div>
-                <textarea className="Body form-control"
-                  onChange={this.handleBodyChange}
-                  value={this.state.body}
-                />
-              </div>
-              <div>
-                <input type="submit" value="Save" className="SaveButton btn btn-gray float-right" />
-              </div>
-            </form>
+            <EditNote idOfNoteToEdit={this.state.id}/>
           </div>
         </div>
       </div>
     );
   }
 }
-
 
 // Render App component
 render(
