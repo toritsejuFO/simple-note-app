@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-# legobox
-=======
 # simpleNoteApp
->>>>>>> 45bdf6cbd7b040307d4cc28e0a521b0018d150fd
+
+A note-taking app that runs in the browser. Built with react, it stores these notes in localstorage using the built in storage API.
