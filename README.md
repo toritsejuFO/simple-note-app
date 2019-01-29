@@ -8,5 +8,5 @@ A note-taking app that runs in the browser. Built with react, it stores these no
 
 # Set up and go
 - Clone repo
-- got into repo directory e.g run `cd simpleNoteApp` on linux
+- run `cd simpleNoteApp`
 - run `http-server .`
