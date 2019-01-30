@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './EditNote.module.css';
 
 class EditNote extends Component {
   constructor(props) {
@@ -21,22 +22,22 @@ class EditNote extends Component {
 
   handleTitleChange(e) {
     this.setState(
-      {title: e.target.value}
+      { title: e.target.value }
     );
   }
 
   handleBodyChange(e) {
     this.setState(
-      {body: e.target.value}
+      { body: e.target.value }
     );
   }
 
   // Update saved note
   handleSubmit(e) {
-    if(this.state.body == "" || this.state.title == ""){
+    if (this.state.body === "" || this.state.title === "") {
       alert("Cannot save note with empty title or body");
     }
-    else{
+    else {
       var title = "title" + this.state.lastClickedID;
       var body = "body" + this.state.lastClickedID;
       localStorage.setItem(title, this.state.title);
@@ -59,29 +60,40 @@ class EditNote extends Component {
   }
 
   render() {
-    if(this.state.lastClickedID != this.props.idOfNoteToEdit) {
-      this.changeStateBasedOnClickedId(this.props.idOfNoteToEdit);
-    }
-    return(
+    // if (this.state.lastClickedID !== this.props.idOfNoteToEdit) {
+    //   this.changeStateBasedOnClickedId(this.props.idOfNoteToEdit);
+    // }
+    return (
       // {/* Form to edit and update existing notes*/}
-      <form className="EditNote form form-control" onSubmit={this.handleSubmit}>
+      <form className={styles.Form + ' form-control'} onSubmit={this.handleSubmit}>
         <div>
-          <p>You are editing slot <input className="UneditableID" type="number" value={this.state.lastClickedID} disabled/></p>
+          <p>You are editing slot
+            <input
+              className={styles.UneditableID}
+              // type="number"
+              value={' ' + this.props.idOfNoteToEdit}
+              disabled />
+          </p>
         </div>
         <div>
-          <input className="Title form-control"
+          <input className={styles.Title + ' form-control'}
             value={this.state.title}
             onChange={this.handleTitleChange}
           />
         </div>
         <div>
-          <textarea className="Body form-control"
+          <textarea
+            className={'form-control ' + styles.Body}
+            style={{ height: '400px' }}
             onChange={this.handleBodyChange}
             value={this.state.body}
           />
         </div>
         <div>
-          <input type="submit" value="Save" className="SaveButton btn btn-gray float-right" />
+          <input
+            type="submit"
+            value="Save"
+            className={styles.SaveButton + ' btn btn-gray float-right'} />
         </div>
       </form>
     );

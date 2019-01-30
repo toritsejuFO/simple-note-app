@@ -1,0 +1,42 @@
+.UneditableID {
+  background-color: #fff;
+  border: none;
+  width: 10%;
+}
+
+.Form {
+  margin-top: 20px;
+  margin-left: 20px;
+  border: none;
+}
+
+.Title, .Body {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.Title {
+  border-bottom: 1px dashed rgba(33, 33, 33, .3);
+}
+
+.Body {
+  border-left: 1px dashed rgba(33, 33, 33, .3);
+  border-right: 1px dashed rgba(33, 33, 33, .3);
+  resize: none;
+}
+
+.Title:focus, .Body:focus {
+  box-shadow: none;
+  border-color: rgba(33, 33, 33, 1);
+  background-color: rgba(33, 33, 33, .1)
+}
+
+.SaveButton:hover {
+  background-color: #333;
+  color: #ddd;
+}
+
+.SaveButton:focus, .UneditableID:focus {
+  box-shadow: none;
+}

@@ -1,0 +1,21 @@
+.App {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.Main {
+  margin: auto;
+}
+
+.List {
+  border-right: 1px solid rgba(33, 33, 33, .5);
+  margin-top: 20px;
+}
+
+.Notice {
+  background-color: #333;;
+  color: #eee;
+  margin-top: 10px;
+  font-weight: bold;
+  padding-left: 10px;
+}

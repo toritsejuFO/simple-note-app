@@ -1,0 +1,21 @@
+.Note {
+  margin: 0px;
+  padding: 0px;
+  color: rgba(33, 33, 33, .5);
+  border-bottom: 1px solid rgba(33, 33, 33, .5);
+}
+
+.MiniTitle, .MiniBody {
+  margin: 0px;
+  padding: 5px 0px;
+}
+
+.MiniBody {
+  margin-left: 25px;
+}
+
+.Note:hover {
+  color: rgba(33, 33, 33, .8);
+  border-color: rgba(33, 33, 33, 1);
+  background-color: rgba(33, 33, 33, .1)
+}
