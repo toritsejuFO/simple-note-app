@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import styles from './EditNote.module.css';
 
 class EditNote extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleTitleChange = e => {
     this.props.handleTitleChange(e.target.value)    
   }

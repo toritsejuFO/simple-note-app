@@ -4,21 +4,35 @@ import Header from './components/Header/Header';
 import Note from './components/Note/Note';
 import EditNote from './components/EditNote/EditNote';
 
-const notes = getNotesFromLocalStorage();
+const getNotesFromLocalStorage = () => {
+  const initialNoteOnFirstStartUp = { id: 1, title: 'My title...', body: 'My note body...' };
+  const localStoragePreparedNotes = JSON.stringify([initialNoteOnFirstStartUp]);
+  localStorage.setItem('SNA-STARTUP', localStoragePreparedNotes)
+
+  return JSON.parse(localStorage.getItem('SNA'))
+    || JSON.parse(localStorage.getItem('SNA-STARTUP'))
+}
+
+const notes = getNotesFromLocalStorage()
+console.log(notes)
 
 class App extends Component {
   constructor() {
+    super()
+    // Initialize state with first note in notes array
+    const note = notes.find(note => note.id === 1)
+
     this.state = {
       notes: notes,
-      id: 0,
-      title: 'title 0',
-      body: 'body 0',
+      id: note.id,
+      title: note.title,
+      body: note.body,
     };
   }
 
-  handleTitleChange = title => this.setState({title});
+  handleTitleChange = title => this.setState({ title });
 
-  handleBodyChange = body => this.setState({body});
+  handleBodyChange = body => this.setState({ body });
 
   // Change the state of form input values to currently clicked note
   editClickedNote = (id) => {
@@ -28,12 +42,12 @@ class App extends Component {
   render() {
     const notes = [];
 
-    [0, 1, 2, 3, 4, 5,].map((elm, i) =>
+    this.state.notes.map((note, i) =>
       notes[i] =
       <Note key={i + 1}
         id={(i + 1).toString()}
-        title={'title ' + i}
-        body={'body ' + i}
+        title={'title ' + i + 1}
+        body={'body ' + i + 1}
         clicked={this.editClickedNote}
       />
     )
@@ -66,10 +80,6 @@ class App extends Component {
       </div>
     );
   }
-}
-
-const getNotesFromLocalStorage = () => {
-  return JSON.parse(localStorage.sna) || JSON.parse('[]');
 }
 
 export default App;
