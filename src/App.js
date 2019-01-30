@@ -4,23 +4,24 @@ import Header from './components/Header/Header';
 import Note from './components/Note/Note';
 import EditNote from './components/EditNote/EditNote';
 
+const notes = getNotesFromLocalStorage();
+
 class App extends Component {
   constructor() {
-    super()
-    const lastSavedID = localStorage.getItem('lastSavedID');
-    const lastClickedID = localStorage.getItem('lastClickedID');
-    console.log(lastSavedID)
-    console.log(lastClickedID)
-
     this.state = {
-      // id: localStorage.getItem("id" + lastSavedID),
+      notes: notes,
       id: 0,
+      title: 'title 0',
+      body: 'body 0',
     };
   }
 
-  // Chnage the state of form input values to currently clicked note
+  handleTitleChange = title => this.setState({title});
+
+  handleBodyChange = body => this.setState({body});
+
+  // Change the state of form input values to currently clicked note
   editClickedNote = (id) => {
-    console.log('ok', id);
     this.setState({ id });
   }
 
@@ -54,13 +55,21 @@ class App extends Component {
 
           <div className="col-md-8 col-sm-7 col-12">
             <EditNote
-              idOfNoteToEdit={this.state.id}
+              id={this.state.id}
+              title={this.state.title}
+              body={this.state.body}
+              handleTitleChange={this.handleTitleChange}
+              handleBodyChange={this.handleBodyChange}
             />
           </div>
         </div>
       </div>
     );
   }
+}
+
+const getNotesFromLocalStorage = () => {
+  return JSON.parse(localStorage.sna) || JSON.parse('[]');
 }
 
 export default App;
