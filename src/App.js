@@ -8,7 +8,7 @@ const appName = 'SNA';
 const localStorageStartupName = 'SNA-STARTUP';
 
 const getNotesFromLocalStorage = () => {
-  const initialNoteOnFirstStartUp = { id: 1, title: 'My title...', body: 'My note body...' };
+  const initialNoteOnFirstStartUp = { id: 1, title: 'Title', body: 'Note body' };
   const localStoragePreparedNotes = JSON.stringify([initialNoteOnFirstStartUp]);
   localStorage.setItem(localStorageStartupName, localStoragePreparedNotes)
 
@@ -33,13 +33,23 @@ class App extends Component {
     };
   }
 
-  handleTitleChange = title => this.setState({ title });
+  handleTitleChange = title => {
+    this._saveNoteToStateAndLocalStorage({title})
+  }
 
-  handleBodyChange = body => this.setState({ body });
+  handleBodyChange = body => {
+    this._saveNoteToStateAndLocalStorage({body})
+  }
 
   // Change the state of form input values to currently clicked note
-  editClickedNote = (id) => {
-    this.setState({ id });
+  handleEditClickedNote = (id) => {
+    // Find clicked note for editing
+    const note = this.state.notes.find(note => note.id === id);
+    const title = note.title;
+    const body = note.body;
+
+    // Set found note to be edited
+    this.setState({ id, title, body });
   }
 
   handleAddNewNote = e => {
@@ -48,18 +58,39 @@ class App extends Component {
     const id = notes.length + 1;
     const newNote = {
       id: id,
-      title: `My title...${id}`,
-      body: `My note body...${id}`
+      title: `Title ${id}`,
+      body: `Note body ${id}`
     };
 
     // Save note to state and localStorage
     notes.push(newNote);
-    this.setState({notes})
-    e.preventDefault()
+    this.setState({notes});
+    this._saveNotesToLocalStorage()
+  }
+
+  _saveNoteToStateAndLocalStorage = newValue => {
+    // Find note being edited by id
+    const notes = this.state.notes;
+    const noteIndex = notes.findIndex(note => note.id === this.state.id);
+    const note = notes[noteIndex];
+
+    // Update note with value
+    note.title = newValue.title || this.state.title;
+    note.body = newValue.body || this.state.body;
+
+    // Update state with new value of note being edited as well
+    this.setState({title: note.title, body: note.body})
+
+    // Update notes in state
+    notes[noteIndex] = note;
+    this.setState({notes});
+
+    // Save notes to localStorage as well
+    this._saveNotesToLocalStorage();
   }
 
   _saveNotesToLocalStorage = () => {
-    localStorage.setItem(appName, JSON.stringify(this.state.notes))
+    localStorage.setItem(appName, JSON.stringify(this.state.notes));
   }
 
   render() {
@@ -71,7 +102,7 @@ class App extends Component {
         id={note.id}
         title={note.title}
         body={note.body}
-        clicked={this.editClickedNote}
+        clicked={this.handleEditClickedNote}
       />
     )
 
@@ -85,7 +116,7 @@ class App extends Component {
           <div className={styles.List + ' col-md-4 col-sm-5 col-12'}>
             {notes}
             <input
-              type="submit"
+              type="button"
               className={styles.AddButton + ' btn btn-light'}
               style={{ marginTop: '20px' }}
               value="Add New Note"

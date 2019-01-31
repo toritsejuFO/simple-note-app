@@ -39,11 +39,12 @@ class EditNote extends Component {
             onChange={this.handleTitleChange}
           />
         </div>
-        <div style={{ height: '400px' }}>
+        <div>
           <textarea rows="1000"
             className={styles.Body + ' form-control'}
-            onChange={this.handleBodyChange}
+            style={{ height: '450px' }}
             value={body}
+            onChange={this.handleBodyChange}
           />
         </div>
       </form>
