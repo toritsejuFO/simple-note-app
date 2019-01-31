@@ -4,13 +4,16 @@ import Header from './components/Header/Header';
 import Note from './components/Note/Note';
 import EditNote from './components/EditNote/EditNote';
 
+const appName = 'SNA';
+const localStorageStartupName = 'SNA-STARTUP';
+
 const getNotesFromLocalStorage = () => {
   const initialNoteOnFirstStartUp = { id: 1, title: 'My title...', body: 'My note body...' };
   const localStoragePreparedNotes = JSON.stringify([initialNoteOnFirstStartUp]);
-  localStorage.setItem('SNA-STARTUP', localStoragePreparedNotes)
+  localStorage.setItem(localStorageStartupName, localStoragePreparedNotes)
 
-  return JSON.parse(localStorage.getItem('SNA'))
-    || JSON.parse(localStorage.getItem('SNA-STARTUP'))
+  return JSON.parse(localStorage.getItem(appName))
+    || JSON.parse(localStorage.getItem(localStorageStartupName))
 }
 
 const notes = getNotesFromLocalStorage()
@@ -39,6 +42,26 @@ class App extends Component {
     this.setState({ id });
   }
 
+  handleAddNewNote = e => {
+    // Initial note content for newly added notes
+    const notes = this.state.notes;
+    const id = notes.length + 1;
+    const newNote = {
+      id: id,
+      title: `My title...${id}`,
+      body: `My note body...${id}`
+    };
+
+    // Save note to state and localStorage
+    notes.push(newNote);
+    this.setState({notes})
+    e.preventDefault()
+  }
+
+  _saveNotesToLocalStorage = () => {
+    localStorage.setItem(appName, JSON.stringify(this.state.notes))
+  }
+
   render() {
     const notes = [];
 
@@ -63,9 +86,10 @@ class App extends Component {
             {notes}
             <input
               type="submit"
-              value="Add New Note"
               className={styles.AddButton + ' btn btn-light'}
-              style={{ marginTop: '20px' }} />
+              style={{ marginTop: '20px' }}
+              value="Add New Note"
+              onClick={this.handleAddNewNote} />
             {/* <p className={styles.Notice}>
               Refresh to see edited changes take effect in your list of notes.
               And ensure to save an edited note before editing another note.
