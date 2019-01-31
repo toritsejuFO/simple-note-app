@@ -28,10 +28,6 @@ class EditNote extends Component {
               value={' ' + id}
               disabled />
           </p>
-          <input
-            type="submit"
-            value="Save"
-            className={styles.SaveButton + ' btn btn-light float-right'} />
         </div>
         <div>
           <input className={styles.Title + ' form-control'}

@@ -34,11 +34,11 @@ class App extends Component {
   }
 
   handleTitleChange = title => {
-    this._saveNoteToStateAndLocalStorage({title})
+    this._saveNoteToStateAndLocalStorage({ title })
   }
 
   handleBodyChange = body => {
-    this._saveNoteToStateAndLocalStorage({body})
+    this._saveNoteToStateAndLocalStorage({ body })
   }
 
   // Change the state of form input values to currently clicked note
@@ -64,7 +64,7 @@ class App extends Component {
 
     // Save note to state and localStorage
     notes.push(newNote);
-    this.setState({notes});
+    this.setState({ notes });
     this._saveNotesToLocalStorage()
   }
 
@@ -79,11 +79,11 @@ class App extends Component {
     note.body = newValue.body || this.state.body;
 
     // Update state with new value of note being edited as well
-    this.setState({title: note.title, body: note.body})
+    this.setState({ title: note.title, body: note.body })
 
     // Update notes in state
     notes[noteIndex] = note;
-    this.setState({notes});
+    this.setState({ notes });
 
     // Save notes to localStorage as well
     this._saveNotesToLocalStorage();
@@ -121,10 +121,9 @@ class App extends Component {
               style={{ marginTop: '20px' }}
               value="Add New Note"
               onClick={this.handleAddNewNote} />
-            {/* <p className={styles.Notice}>
-              Refresh to see edited changes take effect in your list of notes.
-              And ensure to save an edited note before editing another note.
-            </p> */}
+            <p className={styles.Notice}>
+              Note:  Notes are saved as you type :)
+            </p>
           </div>
 
           <div className="col-md-8 col-sm-7 col-12">
