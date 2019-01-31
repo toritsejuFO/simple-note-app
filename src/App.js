@@ -61,14 +61,11 @@ class App extends Component {
         <div className={styles.Main + ' row'}>
           <div className={styles.List + ' col-md-4 col-sm-5 col-12'}>
             {notes}
-            {/* <div> */}
-              <input
-                type="submit"
-                value="Add New Note"
-                className={styles.AddButton + ' btn btn-light'}
-                style={{marginTop: '20px'}}/>
-
-            {/* </div> */}
+            <input
+              type="submit"
+              value="Add New Note"
+              className={styles.AddButton + ' btn btn-light'}
+              style={{ marginTop: '20px' }} />
             {/* <p className={styles.Notice}>
               Refresh to see edited changes take effect in your list of notes.
               And ensure to save an edited note before editing another note.

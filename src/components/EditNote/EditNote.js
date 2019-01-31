@@ -17,7 +17,7 @@ class EditNote extends Component {
 
     return (
       // {/* Form to edit and update existing notes*/}
-      <form className={styles.Form + ' form-control'} onSubmit={this.handleSubmit}>
+      <form className={styles.Form + ' form-group'} onSubmit={this.handleSubmit}>
         <div>
           <p
           className="float-left"
@@ -39,10 +39,9 @@ class EditNote extends Component {
             onChange={this.handleTitleChange}
           />
         </div>
-        <div>
-          <textarea
-            className={'form-control ' + styles.Body}
-            style={{ minHeight: '400px' }}
+        <div style={{ height: '400px' }}>
+          <textarea rows="1000"
+            className={styles.Body + ' form-control'}
             onChange={this.handleBodyChange}
             value={body}
           />
