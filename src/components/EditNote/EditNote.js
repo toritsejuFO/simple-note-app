@@ -19,15 +19,7 @@ class EditNote extends Component {
       // {/* Form to edit and update existing notes*/}
       <form className={styles.Form + ' form-group'} onSubmit={this.handleSubmit}>
         <div>
-          <p
-          className="float-left"
-          style={{width: '200px'}}>
-            You are editing slot
-            <input
-              className={styles.UneditableID}
-              value={' ' + id}
-              disabled />
-          </p>
+          <p>You are editing slot {id}</p>
         </div>
         <div>
           <input className={styles.Title + ' form-control'}
