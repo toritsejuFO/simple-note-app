@@ -3,7 +3,7 @@ import styles from './EditNote.module.css';
 
 class EditNote extends Component {
   handleTitleChange = e => {
-    this.props.handleTitleChange(e.target.value)    
+    this.props.handleTitleChange(e.target.value)
   }
 
   handleBodyChange = e => {
@@ -11,7 +11,7 @@ class EditNote extends Component {
   }
 
   render() {
-    const id =this.props.id
+    const id = this.props.id
     const title = this.props.title
     const body = this.props.body
 
@@ -19,12 +19,19 @@ class EditNote extends Component {
       // {/* Form to edit and update existing notes*/}
       <form className={styles.Form + ' form-control'} onSubmit={this.handleSubmit}>
         <div>
-          <p>You are editing slot
+          <p
+          className="float-left"
+          style={{width: '200px'}}>
+            You are editing slot
             <input
               className={styles.UneditableID}
               value={' ' + id}
               disabled />
           </p>
+          <input
+            type="submit"
+            value="Save"
+            className={styles.SaveButton + ' btn btn-light float-right'} />
         </div>
         <div>
           <input className={styles.Title + ' form-control'}
@@ -35,17 +42,11 @@ class EditNote extends Component {
         <div>
           <textarea
             className={'form-control ' + styles.Body}
-            style={{ height: '400px' }}
+            style={{ minHeight: '400px' }}
             onChange={this.handleBodyChange}
             value={body}
           />
         </div>
-        {/* <div>
-          <input
-            type="submit"
-            value="Save"
-            className={styles.SaveButton + ' btn btn-gray float-right'} />
-        </div> */}
       </form>
     );
   }

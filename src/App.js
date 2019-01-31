@@ -19,7 +19,7 @@ console.log(notes)
 class App extends Component {
   constructor() {
     super()
-    // Initialize state with first note in notes array
+    // Initialize state hence EditNote with first note in notes array
     const note = notes.find(note => note.id === 1)
 
     this.state = {
@@ -45,9 +45,9 @@ class App extends Component {
     this.state.notes.map((note, i) =>
       notes[i] =
       <Note key={i + 1}
-        id={(i + 1).toString()}
-        title={'title ' + i + 1}
-        body={'body ' + i + 1}
+        id={note.id}
+        title={note.title}
+        body={note.body}
         clicked={this.editClickedNote}
       />
     )
@@ -61,10 +61,18 @@ class App extends Component {
         <div className={styles.Main + ' row'}>
           <div className={styles.List + ' col-md-4 col-sm-5 col-12'}>
             {notes}
-            <p className={styles.Notice}>
+            {/* <div> */}
+              <input
+                type="submit"
+                value="Add New Note"
+                className={styles.AddButton + ' btn btn-light'}
+                style={{marginTop: '20px'}}/>
+
+            {/* </div> */}
+            {/* <p className={styles.Notice}>
               Refresh to see edited changes take effect in your list of notes.
               And ensure to save an edited note before editing another note.
-            </p>
+            </p> */}
           </div>
 
           <div className="col-md-8 col-sm-7 col-12">
