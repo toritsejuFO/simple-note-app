@@ -7,8 +7,8 @@ function Note(props) {
       className={styles.Note + ' col-md-10  col-sm-10 col-8'}
       onClick={props.clicked.bind(this, props.id)}
     >
-      <h4 className={styles.MiniTitle}>{props.id}. {props.title  || "Enter title here"} ...</h4>
-      <p className={styles.MiniBody}>{props.body || "Enter body here"} ...</p>
+      <h4 className={styles.MiniTitle}>{props.id}. {props.title.substr(0, 15)  || "Enter title here"} ...</h4>
+      <p className={styles.MiniBody}>{props.body.substr(0, 30) || "Enter body here"} ...</p>
     </div>
   );
 }
