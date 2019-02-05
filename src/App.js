@@ -33,14 +33,9 @@ class App extends Component {
     };
   }
 
-  handleTitleChange = (title, key) => {
-    // key is the property that's changed
-    this._saveNoteToStateAndLocalStorage({ title }, key)
-  }
-
-  handleBodyChange = (body, key) => {
-    // key is the property that's changed
-    this._saveNoteToStateAndLocalStorage({ body }, key)
+  handleChange = (value, key) => {
+    // Key is the property that's changed
+    this._saveNoteToStateAndLocalStorage(value, key)
   }
 
   // Change the state of form input values to currently clicked note
@@ -77,7 +72,8 @@ class App extends Component {
     const note = notes[noteIndex];
 
     // Update note with value
-    note[key] = newValue[key]; // More dynamic way to set title or body depending on which is changed
+    // More dynamic way to set title or body depending on which is changed
+    note[key] = newValue;
 
     // Update state with new value of note being edited as well
     this.setState({ title: note.title, body: note.body })
@@ -132,8 +128,7 @@ class App extends Component {
               id={this.state.id}
               title={this.state.title}
               body={this.state.body}
-              handleTitleChange={this.handleTitleChange}
-              handleBodyChange={this.handleBodyChange}
+              handleChange={this.handleChange}
             />
           </div>
         </div>
