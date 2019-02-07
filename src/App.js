@@ -23,7 +23,10 @@ class App extends Component {
   constructor() {
     super()
     // Initialize state hence EditNote with first note in notes array
-    const note = notes.find(note => note.id === 1)
+    const note = notes.find(note => {
+      const id = JSON.parse(localStorage.getItem('lastClicked')) || 1;
+      return note.id === id
+    });
 
     this.state = {
       notes: notes,
@@ -46,7 +49,10 @@ class App extends Component {
     const body = note.body;
 
     // Set found note to be edited
-    this.setState({ id, title, body });
+    this.setState({ id, title, body, });
+
+    // Store id of note currently being edited
+    localStorage.setItem('lastClicked', id)
   }
 
   handleAddNewNote = e => {

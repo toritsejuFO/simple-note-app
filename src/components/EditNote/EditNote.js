@@ -3,7 +3,6 @@ import styles from './EditNote.module.css';
 
 class EditNote extends Component {
   handleChange = (e, key) => {
-    console.log(e.target.value, key)
     // Extra argument to specify what is being changed
     this.props.handleChange(e.target.value, key)
   }
