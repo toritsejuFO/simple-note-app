@@ -1,4 +1,5 @@
 .Note {
+  position: relative;
   margin: 0px;
   padding: 0px;
   color: rgba(33, 33, 33, .5);
@@ -18,4 +19,17 @@
   color: rgba(33, 33, 33, .8);
   border-color: rgba(33, 33, 33, 1);
   background-color: rgba(33, 33, 33, .1)
+}
+
+.Note:hover .Delete {
+  display: block;
+  cursor: pointer;
+}
+
+.Delete {
+  display: none;
+  float: right;
+  padding-top: 1px;
+  padding-right: 8px;
+  color: red;
 }

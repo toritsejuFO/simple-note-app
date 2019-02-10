@@ -71,6 +71,24 @@ class App extends Component {
     this._saveNotesToLocalStorage()
   }
 
+  handleDelete = id => {
+    // Find note to be deleted by id
+    const notes = this.state.notes;
+    const noteIndex = notes.findIndex(note => note.id === this.state.id);
+
+    // Delete note
+    notes.splice(noteIndex - 1, 1)
+
+    // Update state with new value of note being edited as well
+    // this.setState({ title: note.title, body: note.body })
+
+    // Update notes in state
+    this.setState({ notes });
+
+    // Save notes to localStorage as well
+    this._saveNotesToLocalStorage();
+  }
+
   _saveNoteToStateAndLocalStorage = (newValue, key) => {
     // Find note being edited by id
     const notes = this.state.notes;
@@ -101,12 +119,15 @@ class App extends Component {
 
     this.state.notes.map((note, i) =>
       notes[i] =
-      <Note key={i + 1}
-        id={note.id}
-        title={note.title}
-        body={note.body}
-        clicked={this.handleEditClickedNote}
-      />
+      <div>
+        <Note key={i + 1}
+          id={note.id}
+          title={note.title}
+          body={note.body}
+          clicked={this.handleEditClickedNote}
+          delete={this.handleDelete}
+        />
+      </div>
     )
 
     return (
