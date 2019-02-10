@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/simpleNoteApp/precache-manifest.aa65184f4262b00fbd6f6513b486ec71.js"
+  "/simpleNoteApp/precache-manifest.6a63e01fd01c9dfe8688eafa9396f972.js"
 );
 
 workbox.clientsClaim();
