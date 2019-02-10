@@ -10,3 +10,5 @@ A note-taking app that runs in the browser. Built with react, it stores these no
 - run `cd simpleNoteApp`
 - npm install
 - npm start
+
+This app is hosted on github pages. CLick [here](https://toritsejufo.github.io/simpleNoteApp/?) to view.
