@@ -41,9 +41,13 @@ class App extends Component {
     this._saveNoteToStateAndLocalStorage(value, key)
   }
 
-  // Change the state of form input values to currently clicked note
-  handleEditClickedNote = (id) => {
-    console.log(id)
+  /** Change the state of form input values to currently clicked note */
+  handleEditClickedNote = (e, id) => {
+    // Call function only if a note is to be edited, not deleted
+    // This fixes multiple function calls using event delegation
+    if(!e.target.matches('.delete')); // Do nothing, continue with code execution
+    else return;
+
     // Find clicked note for editing
     const note = this.state.notes[id];
     const title = note.title;
@@ -54,6 +58,38 @@ class App extends Component {
 
     // Store id of note currently being edited
     localStorage.setItem('lastClicked', id)
+  }
+
+  handleDeleteNote = (e, id) => {
+    if (!e.target.matches('.delete')) return;
+
+    // Prevent deletion of note being edited
+    if (id === this.state.id) {
+      alert('Sorry, you can\'t delete the note you\'re currently editing. '
+        + 'Kindly switch to another note, then delete the intended note.');
+      return;
+    }
+
+    // Get notes
+    const notes = this.state.notes;
+
+    // Find and delete note by id
+    notes.splice(id, 1)
+
+    // If deleting a note above the one currently being edited...
+    // ...re-adjust position of note being edited after the delete
+    if ( id < this.state.id) {
+      const id = this.state.id - 1;
+      const {title, body} = notes[id];
+      this.setState({ id, title, body })
+      localStorage.setItem('lastClicked', id)
+    }
+
+    // Update notes in state
+    this.setState({ notes });
+
+    // Save notes to localStorage as well
+    this._saveNotesToLocalStorage();
   }
 
   handleAddNewNote = e => {
@@ -68,25 +104,6 @@ class App extends Component {
     notes.push(newNote);
     this.setState({ notes });
     this._saveNotesToLocalStorage()
-  }
-
-  handleDelete = id => {
-    if (id === this.state.id) {
-      alert('Sorry, you can\'t delete the note you\'re currently editing. '
-      + 'Kindly switch to another note, then delete the intended note.');
-      return;
-    }
-    // Get notes
-    const notes = this.state.notes;
-
-    // Find and delete note by id
-    notes.splice(id, 1)
-
-    // Update notes in state
-    this.setState({ notes });
-
-    // Save notes to localStorage as well
-    this._saveNotesToLocalStorage();
   }
 
   _saveNoteToStateAndLocalStorage = (newValue, key) => {
@@ -123,8 +140,8 @@ class App extends Component {
           id={id}
           title={note.title}
           body={note.body}
-          clicked={this.handleEditClickedNote}
-          delete={this.handleDelete}
+          edit={this.handleEditClickedNote}
+          delete={this.handleDeleteNote}
         />
       </div>
     )
