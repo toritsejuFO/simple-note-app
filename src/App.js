@@ -156,7 +156,7 @@ class App extends Component {
     return (
       <div className={styles.App + ' container-fluid'}>
         <div className="row">
-          <Header text="My Simple Note App" />
+          <Header text="Simple Note App" />
         </div>
 
         <div className={styles.Main + ' row'}>
