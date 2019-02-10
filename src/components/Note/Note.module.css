@@ -26,6 +26,14 @@
   cursor: pointer;
 }
 
+.Show {
+  display: block;
+  float: right;
+  padding-top: 1px;
+  padding-right: 8px;
+  color: red;
+}
+
 .Delete {
   display: none;
   float: right;

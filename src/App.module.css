@@ -12,6 +12,11 @@
   margin-top: 20px;
 }
 
+.Scroll {
+  max-height: 445px;
+  overflow-y: scroll;
+}
+
 .Notice {
   background-color: #333;;
   color: #eee;

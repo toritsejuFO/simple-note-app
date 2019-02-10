@@ -12,10 +12,8 @@ const getNotesFromLocalStorage = () => {
   const localStoragePreparedNotes = JSON.stringify([initialNoteOnFirstStartUp]);
   localStorage.setItem(localStorageStartupName, localStoragePreparedNotes)
 
-  if (JSON.parse(localStorage.getItem(appName)) && JSON.parse(localStorage.getItem(appName)).length !== 0) {
-    return JSON.parse(localStorage.getItem(appName));
-  }
-  return JSON.parse(localStorage.getItem(localStorageStartupName))
+  return JSON.parse(localStorage.getItem(appName))
+    || JSON.parse(localStorage.getItem(localStorageStartupName))
 }
 
 const notes = getNotesFromLocalStorage()
@@ -33,7 +31,17 @@ class App extends Component {
       id: idOfLastClicked,
       title: note.title,
       body: note.body,
+      width: 0
     };
+  }
+
+  componentDidMount = () => {
+    this._updateStateWithWindowWidth();
+    window.addEventListener('resize', this._updateStateWithWindowWidth)
+  }
+
+  _updateStateWithWindowWidth = () => {
+    this.setState({ width: window.innerWidth })
   }
 
   handleChange = (value, key) => {
@@ -45,7 +53,7 @@ class App extends Component {
   handleEditClickedNote = (e, id) => {
     // Call function only if a note is to be edited, not deleted
     // This fixes multiple function calls using event delegation
-    if(!e.target.matches('.delete')); // Do nothing, continue with code execution
+    if (!e.target.matches('.delete')); // Do nothing, continue with code execution
     else return;
 
     // Find clicked note for editing
@@ -78,9 +86,9 @@ class App extends Component {
 
     // If deleting a note above the one currently being edited...
     // ...re-adjust position of note being edited after the delete
-    if ( id < this.state.id) {
+    if (id < this.state.id) {
       const id = this.state.id - 1;
-      const {title, body} = notes[id];
+      const { title, body } = notes[id];
       this.setState({ id, title, body })
       localStorage.setItem('lastClicked', id)
     }
@@ -135,20 +143,15 @@ class App extends Component {
 
     this.state.notes.map((note, id) =>
       notes[id] =
-      <div>
-        <Note key={id + 1}
-          id={id}
-          title={note.title}
-          body={note.body}
-          edit={this.handleEditClickedNote}
-          delete={this.handleDeleteNote}
-        />
-      </div>
+      <Note key={id + 1}
+        id={id}
+        title={note.title}
+        body={note.body}
+        edit={this.handleEditClickedNote}
+        delete={this.handleDeleteNote}
+        width={this.state.width}
+      />
     )
-
-    if (notes.length === 0) {
-      this.handleAddNewNote()
-    }
 
     return (
       <div className={styles.App + ' container-fluid'}>
@@ -158,7 +161,7 @@ class App extends Component {
 
         <div className={styles.Main + ' row'}>
           <div className={styles.List + ' col-md-4 col-sm-5 col-12'}>
-            {notes}
+            <div className={styles.Scroll}>{notes}</div>
             <input
               type="button"
               className={styles.AddButton + ' btn btn-light'}
