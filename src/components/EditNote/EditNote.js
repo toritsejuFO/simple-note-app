@@ -8,15 +8,15 @@ class EditNote extends Component {
   }
 
   render() {
-    const id = this.props.id
-    const title = this.props.title
-    const body = this.props.body
+    const id = this.props.id;
+    const title = this.props.title;
+    const body = this.props.body;
 
     return (
       // Form to edit and update existing notes
       <form className={styles.Form + ' form-group'} onSubmit={this.handleSubmit}>
         <div>
-          <p>You are editing slot {id}</p>
+          <p>You are editing slot {id + 1}</p>
         </div>
         <div>
           <input className={styles.Title + ' form-control'}
