@@ -1,15 +1,15 @@
 {
-  "main.css": "/simpleNoteApp/static/css/main.5a97ca07.chunk.css",
-  "main.js": "/simpleNoteApp/static/js/main.32ac459d.chunk.js",
-  "main.js.map": "/simpleNoteApp/static/js/main.32ac459d.chunk.js.map",
-  "static/css/1.96610c7b.chunk.css": "/simpleNoteApp/static/css/1.96610c7b.chunk.css",
-  "static/js/1.32f3431e.chunk.js": "/simpleNoteApp/static/js/1.32f3431e.chunk.js",
-  "static/js/1.32f3431e.chunk.js.map": "/simpleNoteApp/static/js/1.32f3431e.chunk.js.map",
-  "runtime~main.js": "/simpleNoteApp/static/js/runtime~main.4746fce2.js",
-  "runtime~main.js.map": "/simpleNoteApp/static/js/runtime~main.4746fce2.js.map",
-  "static/css/main.5a97ca07.chunk.css.map": "/simpleNoteApp/static/css/main.5a97ca07.chunk.css.map",
-  "static/css/1.96610c7b.chunk.css.map": "/simpleNoteApp/static/css/1.96610c7b.chunk.css.map",
-  "index.html": "/simpleNoteApp/index.html",
-  "precache-manifest.6a63e01fd01c9dfe8688eafa9396f972.js": "/simpleNoteApp/precache-manifest.6a63e01fd01c9dfe8688eafa9396f972.js",
-  "service-worker.js": "/simpleNoteApp/service-worker.js"
+  "main.css": "/simple-note-app/static/css/main.5a97ca07.chunk.css",
+  "main.js": "/simple-note-app/static/js/main.23ef89b4.chunk.js",
+  "main.js.map": "/simple-note-app/static/js/main.23ef89b4.chunk.js.map",
+  "static/css/1.96610c7b.chunk.css": "/simple-note-app/static/css/1.96610c7b.chunk.css",
+  "static/js/1.32f3431e.chunk.js": "/simple-note-app/static/js/1.32f3431e.chunk.js",
+  "static/js/1.32f3431e.chunk.js.map": "/simple-note-app/static/js/1.32f3431e.chunk.js.map",
+  "runtime~main.js": "/simple-note-app/static/js/runtime~main.cdb73fe3.js",
+  "runtime~main.js.map": "/simple-note-app/static/js/runtime~main.cdb73fe3.js.map",
+  "static/css/1.96610c7b.chunk.css.map": "/simple-note-app/static/css/1.96610c7b.chunk.css.map",
+  "static/css/main.5a97ca07.chunk.css.map": "/simple-note-app/static/css/main.5a97ca07.chunk.css.map",
+  "index.html": "/simple-note-app/index.html",
+  "precache-manifest.268cb9d6af02c5e83068b6276faefa45.js": "/simple-note-app/precache-manifest.268cb9d6af02c5e83068b6276faefa45.js",
+  "service-worker.js": "/simple-note-app/service-worker.js"
 }
