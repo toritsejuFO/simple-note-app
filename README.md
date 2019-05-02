@@ -11,4 +11,4 @@ A note-taking app that runs in the browser. Built with react, it stores these no
 - npm install
 - npm start
 
-This app is hosted on github pages. CLick [here](https://toritsejufo.github.io/simpleNoteApp/?) to view.
+This app is hosted on github pages. CLick [here](https://toritsejufo.github.io/simple-note-app/?) to view.
